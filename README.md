@@ -20,7 +20,11 @@ WEATHER APP is a dynamic mobile application built using Flutter, offering a seam
 ## Built With
 
 - [Flutter](https://flutter.dev/) - A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
-- [Provider](https://pub.dev/packages/provider) - A recommended way to manage app state in Flutter applications.
+- [geolocator](https://pub.dev/packages/geolocator) - Provides easy access to platform-specific location services.
+- [weather](https://pub.dev/packages/weather) - A Dart library for fetching weather data from various sources.
+- [intl](https://pub.dev/packages/intl) - Provides internationalization and localization utilities.
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc) - Implements the BLoC (Business Logic Component) design pattern for Flutter.
+- [equatable](https://pub.dev/packages/equatable) - Provides support for value-based equality without needing to explicitly define `==` and `hashCode`.
 
 ## Getting Started
 
