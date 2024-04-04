@@ -1,16 +1,35 @@
-# weather_app
+WEATHER APP - Bloc
 
-A new Flutter project.
+
+![App Screenshot](/WEATHER%20APP%20SS.png)
+
+## Description
+
+WEATHER APP is a dynamic mobile application built using Flutter, offering a seamless user experience across Android and iOS platforms. Leveraging the power of Flutter's UI toolkit and Bloc for efficient state management.
+
+
+## Features
+
+- Temperature
+- STATUS
+- Sun Rise
+- Sun Set
+- Max Temperature
+- Min Temperature
+
+## Built With
+
+- [Flutter](https://flutter.dev/) - A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- [Provider](https://pub.dev/packages/provider) - A recommended way to manage app state in Flutter applications.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Install Flutter
+- Install VS Code or Android Studio
+- Clone the Repo
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
