@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/bloc/clock_bloc.dart';
 import 'package:weather_app/bloc/weather_bloc_bloc.dart';
 import 'package:weather_app/screens/home_screen.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,9 +19,15 @@ class MyApp extends StatelessWidget {
           future: _determinePosition(),
           builder: (context, snap) {
             if (snap.hasData) {
-              return BlocProvider<WeatherBlocBloc>(
-                create: (context) =>
-                    WeatherBlocBloc()..add(FetchWeather(snap.data as Position)),
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider<WeatherBlocBloc>(
+                    create: (context) => WeatherBlocBloc()..add(FetchWeather(snap.data as Position)),
+                  ),
+                  BlocProvider<ClockBloc>(
+                    create: (context) => ClockBloc(),
+                  ),
+                ],
                 child: const HomeScreen(),
               );
             } else {

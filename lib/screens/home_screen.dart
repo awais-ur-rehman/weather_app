@@ -6,8 +6,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/bloc/weather_bloc_bloc.dart';
 
+import '../bloc/clock_bloc.dart';
+import '../bloc/clock_event.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  String getGreeting(DateTime currentTime) {
+    int hour = currentTime.hour;
+
+    if (hour < 12) {
+      return 'Good Morning';
+    } else if (hour < 17) {
+      return 'Good Afternoon';
+    } else if (hour < 20) {
+      return 'Good Evening';
+    } else {
+      return 'Good Night';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +92,30 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w300),
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            "Good Morning",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
+                          BlocBuilder<ClockBloc, ClockState>(
+                            builder: (context, state) {
+                              if (state is TimeUpdated) {
+                                String greeting = getGreeting(state.currentTime);
+
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      greeting,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    // ... other widgets
+                                  ],
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
                           ),
+
                           const SizedBox(
                             height: 50,
                           ),
@@ -112,14 +147,21 @@ class HomeScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Center(
-                            child: Text(
-                              DateFormat('EEEE dd |')
-                                  .add_jm()
-                                  .format(state.weather.date!),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300),
+                            child: BlocBuilder<ClockBloc, ClockState>(
+                              builder: (context, state) {
+                                DateTime currentTime = DateTime.now();
+                                if (state is TimeUpdated) {
+                                  return Text(
+                                    DateFormat('hh:mm a').format(state.currentTime),
+                                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                                  );
+                                } else {
+                                  return Text(
+                                    DateFormat('hh:mm a').format(currentTime),
+                                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                                  );
+                                }
+                              },
                             ),
                           ),
                           const SizedBox(height: 70),
@@ -242,7 +284,7 @@ class HomeScreen extends StatelessWidget {
                                         child: Container(
                                           margin:
                                               const EdgeInsets.only(left: 10),
-                                          height: 40,
+                                          height: 60,
                                           width: 80,
                                           child: const Text(
                                             "Temp Max",
@@ -284,7 +326,7 @@ class HomeScreen extends StatelessWidget {
                                         child: Container(
                                           margin:
                                               const EdgeInsets.only(left: 10),
-                                          height: 40,
+                                          height: 60,
                                           width: 80,
                                           child: const Text(
                                             "Temp Min",
