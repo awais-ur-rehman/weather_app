@@ -11,6 +11,7 @@ WEATHER APP is a dynamic mobile application built using Flutter, offering a seam
 ## Features
 
 - Temperature
+- Time, Day and Date
 - STATUS
 - Sun Rise
 - Sun Set
