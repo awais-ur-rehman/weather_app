@@ -26,7 +26,6 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,28 +93,29 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           BlocBuilder<ClockBloc, ClockState>(
                             builder: (context, state) {
+                              // Determine the greeting based on the current time or the time from the updated state.
+                              DateTime currentTime = DateTime.now();
                               if (state is TimeUpdated) {
-                                String greeting = getGreeting(state.currentTime);
-
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      greeting,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    // ... other widgets
-                                  ],
-                                );
-                              } else {
-                                return CircularProgressIndicator();
+                                currentTime = state.currentTime;
                               }
+                              String greeting = getGreeting(currentTime);
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    greeting,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  // ... other widgets
+                                ],
+                              );
                             },
                           ),
-
                           const SizedBox(
                             height: 50,
                           ),
@@ -149,18 +149,21 @@ class HomeScreen extends StatelessWidget {
                           Center(
                             child: BlocBuilder<ClockBloc, ClockState>(
                               builder: (context, state) {
-                                DateTime currentTime = DateTime.now();
-                                if (state is TimeUpdated) {
-                                  return Text(
-                                    DateFormat('hh:mm a').format(state.currentTime),
-                                    style: const TextStyle(fontSize: 18, color: Colors.white),
-                                  );
-                                } else {
-                                  return Text(
-                                    DateFormat('hh:mm a').format(currentTime),
-                                    style: const TextStyle(fontSize: 18, color: Colors.white),
-                                  );
-                                }
+                                // Use the time from the state if it's updated, otherwise use the current system time
+                                DateTime currentTime = (state is TimeUpdated)
+                                    ? state.currentTime
+                                    : DateTime.now();
+
+                                // Format the string to "Day Date | Time"
+                                String formattedDateTime =
+                                    DateFormat('EEEE dd | hh:mm a')
+                                        .format(currentTime);
+
+                                return Text(
+                                  formattedDateTime,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                );
                               },
                             ),
                           ),
